@@ -151,7 +151,11 @@ void menuPatient() {
   cout << "\t\t\t\t";
   cout << " 4. Search and view Records Patient\n\n";
   cout << "\t\t\t\t";
+<<<<<<< HEAD
   cout << " 5. add \n\n";
+=======
+  cout << " 5. addMedicalReport \n\n";
+>>>>>>> 058abce00c5386b16848b93e3ab5f7805fe71d6f
   cout << "\t\t\t\t";
   cout << " 6. Back select Patient/Doctor\n\n";
   cout << "\t\t\t\t";
@@ -183,7 +187,11 @@ void menuPatient() {
   } break;
   case 5: {
     system("cls");
+<<<<<<< HEAD
     p.addMedical();
+=======
+    p.addMedicalReport();
+>>>>>>> 058abce00c5386b16848b93e3ab5f7805fe71d6f
   } break;
   case 6: {
     system("cls");

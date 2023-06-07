@@ -211,7 +211,7 @@ void Doctor::searchRecord() {
     std::getline(fin, doctor.name, '|');
     std::getline(fin, doctor.age, '|');
     std::getline(fin, doctor.tellnumber, '|');
-    std::getline(fin, doctor.address, '\n');
+    std::getline(fin, doctor.address, '-');
     // cin.ignore();
     listPatient.push_back(doctor);
   }

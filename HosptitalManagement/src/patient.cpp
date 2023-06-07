@@ -1,8 +1,12 @@
 #include "patient.h"
 #include "ui.h"
+<<<<<<< HEAD
 #include <cstdio>
 #include <fstream>
 #include <ios>
+=======
+#include <fstream>
+>>>>>>> 058abce00c5386b16848b93e3ab5f7805fe71d6f
 #include <string>
 Patient p;
 void Patient::getData() {
@@ -49,6 +53,7 @@ void Patient::getData() {
   cin >> address;
   cout << std::endl;
 }
+<<<<<<< HEAD
 int checkLine() {
   std::ifstream file("patient.txt");
   if (file.is_open()) {
@@ -63,14 +68,31 @@ int checkLine() {
   }
   file.close();
   return 0;
+=======
+bool IsFileEmpty(const std::string &filename) {
+  std::ifstream file(filename);
+  return file.peek() == std::ifstream::traits_type::eof();
+>>>>>>> 058abce00c5386b16848b93e3ab5f7805fe71d6f
 }
 void Patient::addRecord() {
   std::ofstream fout;
   fout.open("patient.txt", std::ios::out | std::ios::app);
   cin.ignore();
   p.getData();
+<<<<<<< HEAD
   fout << p.idPatient << "|";
   fout << p; // được kế thừa từ lớp person
+=======
+  if (IsFileEmpty("patient.txt")) {
+    fout << p.idPatient << "|";
+    fout << p;
+  } else {
+    fout << std::endl;
+    fout << p.idPatient << "|"; // nếu không trống
+    fout << p;
+  }
+  // được kế thừa từ lớp person;
+>>>>>>> 058abce00c5386b16848b93e3ab5f7805fe71d6f
   fout.close();
   cout << "\n\n";
   cout << "\t\t\t\t";
@@ -97,7 +119,7 @@ void Patient::displayRecord() {
     std::getline(fin, p.name, '|');
     std::getline(fin, p.age, '|');
     std::getline(fin, p.tellnumber, '|');
-    std::getline(fin, p.address, '\n');
+    std::getline(fin, p.address, '-');
     // cin.ignore();
     listPatient.push_back(p);
   }
@@ -133,7 +155,7 @@ void Patient::showDelete(string namefile) {
     std::getline(fin, patient.name, '|');
     std::getline(fin, patient.age, '|');
     std::getline(fin, patient.tellnumber, '|');
-    std::getline(fin, patient.address, '\n');
+    std::getline(fin, patient.address, '-');
     // cin.ignore();
     listPatient.push_back(patient);
   }
@@ -242,7 +264,7 @@ void Patient::searchRecord() {
     std::getline(fin, patient.name, '|');
     std::getline(fin, patient.age, '|');
     std::getline(fin, patient.tellnumber, '|');
-    std::getline(fin, patient.address, '\n');
+    std::getline(fin, patient.address, '-');
     // cin.ignore();
     listPatient.push_back(patient);
   }
@@ -266,6 +288,7 @@ void Patient::searchRecord() {
   menuPatient();
 }
 int Patient::findName(string name) {
+<<<<<<< HEAD
   std::ifstream fin;
   fin.open("patient.txt", std::ios::in);
   std::vector<Patient> listPatient;
@@ -435,4 +458,112 @@ void deleteMedical(string name) {
     records_output << records[i] << std::endl;
   }
   records_output.close();
+=======
+  fstream fin;
+  fin.open("patient.txt", std::ios::in);
+  std::vector<Patient> listPatient;
+  while (!fin.eof()) {
+    std::getline(fin, p.idPatient, '|');
+    std::getline(fin, p.id, '|');
+    std::getline(fin, p.name, '|');
+    std::getline(fin, p.age, '|');
+    std::getline(fin, p.tellnumber, '|');
+    std::getline(fin, p.address, '-');
+    // cin.ignore();
+    listPatient.push_back(p);
+    fin.close();
+  }
+  for (int i = 0; i < listPatient.size() - 1; i++) {
+    if (listPatient[i].name == name)
+      return i;
+  }
+  return 1;
+}
+addMedicalReport patient;
+void Patient::getMeical() {
+  system("cls");
+  cout << " ";
+  cout << "\n";
+  cout << "\t\t\t\t";
+  cout << "\n";
+  cout << "\t\t\t\t";
+  cout << "\n";
+  cout << "\t\t\t\t";
+  cout << "\n";
+  cout << "\n\n\n\n";
+  cout << "\t\t\t\t";
+  cout << "Enter The Information Below:\n\n";
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "trieu chung:                     :  ";
+  cin.ignore();
+  std::getline(cin, patient.trieuChung);
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "Chuan doan:              :  ";
+  cin.ignore();
+  std::getline(cin, patient.chuanDoan);
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "Ngay dieu tri:              :  ";
+  cin.ignore();
+  std::getline(cin, patient.ngayDieutri);
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "Lich su kham:                    :  ";
+  cin.ignore();
+  std::getline(cin, patient.lishsuketQuaKham);
+}
+
+void Patient::addMedicalReport() {
+  fstream fin, fou;
+  fin.open("patient.txt", std::ios::in);
+  std::vector<Patient> listPatient;
+  while (!fin.eof()) {
+    std::getline(fin, p.idPatient, '|');
+    std::getline(fin, p.id, '|');
+    std::getline(fin, p.name, '|');
+    std::getline(fin, p.age, '|');
+    std::getline(fin, p.tellnumber, '|');
+    std::getline(fin, p.address, '-');
+    // cin.ignore();
+    listPatient.push_back(p);
+    // cin.ignore();
+    listPatient.push_back(p);
+    fin.close();
+  }
+  string name;
+  cin.ignore();
+  getline(cin, name);
+  cout << findName(name);
+  if (findName(name)) {
+    getMeical();
+    fou.open("patient.txt", std::ios::in | std::ios::out);
+    fou.seekp(fou.tellg());
+    fou << listPatient[findName(name)].idPatient << "|";
+    fou << listPatient[findName(name)].id << "|";
+    fou << listPatient[findName(name)].name << "|";
+    fou << listPatient[findName(name)].age << "|";
+    fou << listPatient[findName(name)].tellnumber << "|";
+    fou << listPatient[findName(name)].address << "-";
+    fou << patient.ngayDieutri << "|";
+    fou << patient.trieuChung << "|";
+    fou << patient.chuanDoan << "|";
+    fou << patient.lishsuketQuaKham;
+    fou.close();
+  }
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "Record delete successfully!!";
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "Do you want to delete more?(Y/N)";
+  char input;
+  cin >> &input;
+  if (input == 'Y' || input == 'y') {
+    p.addMedicalReport();
+  } else
+    menuPatient();
+  getchar();
+>>>>>>> 058abce00c5386b16848b93e3ab5f7805fe71d6f
 }
