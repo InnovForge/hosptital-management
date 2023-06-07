@@ -15,5 +15,16 @@ public:
   void showDelete(string namefile);
   void table();
   void searchRecord();
+  int findName(string name);
+  void addMedical();
+  void reNameFile();
 };
+struct medicalRecord {
+  string name;
+  string chanDoan;
+  string lishsubenh;
+};
+void addMedical();
+void chuandoan();
+void deleteMedical(string name);
 #endif

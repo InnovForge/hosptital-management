@@ -6,7 +6,7 @@ std::ostream &operator<<(std::ostream &FILE_OUT, Person &bn) {
   FILE_OUT << bn.name << "|";
   FILE_OUT << bn.age << "|";
   FILE_OUT << bn.tellnumber << "|";
-  FILE_OUT << bn.address << std::endl;
+  FILE_OUT << bn.address << endl;
   return FILE_OUT;
 }
 void Person::getData() {
@@ -122,7 +122,7 @@ void Person::showDelete(string namefile) {
     std::getline(fin, benhnhan.name, '|');
     std::getline(fin, benhnhan.age, '|');
     std::getline(fin, benhnhan.tellnumber, '|');
-    std::getline(fin, benhnhan.address, '\n');
+    std::getline(fin, benhnhan.address, '-');
     // cin.ignore();
     listPatient.push_back(benhnhan);
   }
@@ -202,7 +202,7 @@ void Person::searchRecord() {
     std::getline(fin, benhnhan.name, '|');
     std::getline(fin, benhnhan.age, '|');
     std::getline(fin, benhnhan.tellnumber, '|');
-    std::getline(fin, benhnhan.address, '\n');
+    std::getline(fin, benhnhan.address, '-');
     // cin.ignore();
     listPatient.push_back(benhnhan);
   }
