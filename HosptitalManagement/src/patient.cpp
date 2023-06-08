@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <fstream>
 #include <ios>
+#include <set>
 #include <string>
 Patient p;
 void Patient::getData() {
@@ -293,38 +294,23 @@ int Patient::findName(string name) {
 medicalRecord patient;
 void addmedicalRecord() {
   cout << "nhap chuan doan benh: ";
-  cin.ignore();
+  // cin.ignore();
   std::fflush(stdin);
   getline(cin, patient.chanDoan);
   cout << "lish su benh: ";
-  cin.ignore();
+  // cin.ignore();
   std::fflush(stdin);
   getline(cin, patient.lishsubenh);
 }
 void Patient::addMedical() {
-  std::ifstream fin;
-  fin.open("patient.txt", std::ios::in);
-  std::vector<Patient> listPatient;
-  while (!fin.eof()) {
-    Patient patient;
-    std::getline(fin, patient.idPatient, '|');
-    std::getline(fin, patient.id, '|');
-    std::getline(fin, patient.name, '|');
-    std::getline(fin, patient.age, '|');
-    std::getline(fin, patient.tellnumber, '|');
-    std::getline(fin, patient.address, '\n');
-    // cin.ignore();
-    listPatient.push_back(patient);
-  }
-  fin.close();
   string name;
   cout << "nhap ten benh nhan: ";
   cin.ignore();
   // std::fflush(stdin);
   getline(cin, name);
   if (findName(name) == false) {
-    cout << "khong tim thay" << name;
-    cout << "\ndo you want return main or retart?";
+    cout << "not Found: " << name;
+    cout << "\ndo you want return main or retart?(Y/N)";
     char input;
     cin >> input;
     if (input == 'Y' || input == 'y') {
@@ -337,7 +323,8 @@ void Patient::addMedical() {
     fout.open("medical.txt", ios::app | ios::out);
     addmedicalRecord();
     fout << name << "|";
-    fout << patient.chanDoan << "|" << endl;
+    fout << patient.chanDoan << "|";
+    fout << patient.lishsubenh << endl;
     fout.close();
     cout << "\n\n";
     cout << "\t\t\t\t";
@@ -435,4 +422,38 @@ void deleteMedical(string name) {
     records_output << records[i] << std::endl;
   }
   records_output.close();
+}
+void displayMedical() {
+  std::ifstream fin;
+  // table();
+  //
+  fin.open("medical.txt", std::ios::in);
+  std::vector<medicalRecord> listPatient;
+  while (!fin.eof()) {
+    std::getline(fin, patient.name, '|');
+    std::getline(fin, patient.chanDoan, '|');
+    std::getline(fin, patient.lishsubenh, '\n');
+    listPatient.push_back(patient);
+  }
+
+  cout << std::setw(35) << std::left << "name" << std::setw(35) << "Chuan Doan"
+       << std::setw(35) << "Lich Su Benh" << std::setw(35) << std::endl;
+  cout << "------------------------------------------------------------------"
+          "-----------------------\n";
+
+  for (int i = 0; i < listPatient.size() - 1; i++) {
+    cout << std::setw(35) << std::left << listPatient[i].name << std::setw(35)
+         << listPatient[i].chanDoan << std::setw(35)
+         << listPatient[i].lishsubenh << std::endl;
+  }
+
+  fin.close();
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "press enter to exit";
+  getchar();
+  cin.ignore();
+  menuPatient();
 }

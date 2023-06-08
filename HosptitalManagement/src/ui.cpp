@@ -151,13 +151,15 @@ void menuPatient() {
   cout << "\t\t\t\t";
   cout << " 4. Search and view Records Patient\n\n";
   cout << "\t\t\t\t";
-  cout << " 5. add \n\n";
+  cout << " 5. add Medical\n\n";
   cout << "\t\t\t\t";
-  cout << " 6. Back select Patient/Doctor\n\n";
+  cout << " 6. Shows Medical Patient\n\n";
+  cout << "\t\t\t\t";
+  cout << " 7. Back select Patient/Doctor\n\n";
   cout << "\t\t\t\t";
   cout << " 0. Exit\n\n";
   cout << "\t\t\t\t";
-  cout << "Choose options:[1/2/3/4/5/0]:";
+  cout << "Choose options:[1/2/3/4/5/6/7/0]:";
   fflush(stdin);
   cin >> input;
   switch (input) {
@@ -186,6 +188,10 @@ void menuPatient() {
     p.addMedical();
   } break;
   case 6: {
+    system("cls");
+    displayMedical();
+  }
+  case 7: {
     system("cls");
     select();
   } break;

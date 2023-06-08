@@ -27,4 +27,5 @@ struct medicalRecord {
 void addMedical();
 void chuandoan();
 void deleteMedical(string name);
+void displayMedical();
 #endif

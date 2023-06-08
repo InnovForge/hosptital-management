@@ -1,5 +1,6 @@
 #include "doctor.h"
 #include "ui.h"
+#include <cstdio>
 Doctor d;
 // std::ostream& operator<<(std::ostream& FILE_OUT, Doctor& bn) {
 //     FILE_OUT << bn.id << "|";
@@ -41,6 +42,7 @@ void Doctor::getData() {
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "Age:                    :  ";
+  fflush(stdin);
   cin.ignore();
   cin >> age;
   cout << "\n\n";
