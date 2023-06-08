@@ -1,3 +1,3 @@
-bs01|11|Tran Van Khoa|9|84758463896|HaNoi
-bs02|77|Cao Thi Tuyet|5|84738563876|Daklak
-bs05|25|Tran Kim Sa|5|84564728412|LaiChau
+bs01|11|Tran Van Khoa|29|84758463896|HaNoi
+bs02|77|Cao Thi Tuyet|51|84738563876|Daklak
+bs05|25|Tran Kim Sa|19|84564728412|LaiChau
