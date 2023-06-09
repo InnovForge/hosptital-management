@@ -1,0 +1,4 @@
+bn01|11|Dang Tuan Anh|18|84063859681|HaiPhong
+bn02|22|Nguyen Thai Duong|19|849943628174|HaNoi
+bn03|23|Nguyen Thai Huy|17|84832049246|NgheAn
+bn04|25|Mac Trung Duc|11|8474473852709|DaNang
