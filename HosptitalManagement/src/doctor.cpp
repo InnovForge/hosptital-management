@@ -70,7 +70,7 @@ void Doctor::getData() {
   cin >> bienche;
   cout << "\n\n";
   cout << "\t\t\t\t";
-  cout << "salaty                  :  ";
+  cout << "salary                  :  ";
   fflush(stdin);
   cin >> salary;
   cout << std::endl;
