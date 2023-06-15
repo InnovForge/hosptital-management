@@ -1,4 +1,5 @@
 #include "person.h"
+#include <string>
 using namespace std;
 Person ps;
 std::ostream &operator<<(std::ostream &FILE_OUT, Person &bn) {
@@ -45,7 +46,8 @@ void Person::getData() {
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "address                 :  ";
-  cin >> address;
+  cin.ignore();
+  getline(cin, address);
   cout << std::endl;
 }
 

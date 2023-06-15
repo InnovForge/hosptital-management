@@ -11,8 +11,7 @@ Doctor d;
 //     FILE_OUT << bn.address << std::endl;
 //     return FILE_OUT;
 // }
-void Doctor::getData()
-{
+void Doctor::getData() {
   system("cls");
   cout << " ";
   cout << "\n";
@@ -28,12 +27,14 @@ void Doctor::getData()
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "ID:                     :  ";
-  cin.ignore();
+  // cin.ignore();
+  fflush(stdin);
   cin >> id;
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "ID Doctor:              :  ";
-  cin.ignore();
+  // cin.ignore();
+  fflush(stdin);
   cin >> idDoctor;
   cout << "\n\n";
   cout << "\t\t\t\t";
@@ -43,22 +44,24 @@ void Doctor::getData()
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "Age:                    :  ";
-  // fflush(stdin);
-  cin.ignore();
+  fflush(stdin);
+  // cin.ignore();
   cin >> age;
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "tellnumber              :  ";
-  cin.ignore();
+  /* cin.ignore(); */
+  fflush(stdin);
   cin >> tellnumber;
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "address                 :  ";
-  cin >> address;
+  cin.ignore();
+  getline(cin, address);
+
   cout << std::endl;
 }
-void Doctor::addRecord()
-{
+void Doctor::addRecord() {
   std::ofstream fout;
   fout.open("doctor.txt", std::ios::out | std::ios::app);
   cin.ignore();
@@ -74,23 +77,19 @@ void Doctor::addRecord()
   cout << "Do you want to add more?(Y/N)";
   char input;
   cin >> &input;
-  if (input == 'Y' || input == 'y')
-  {
+  if (input == 'Y' || input == 'y') {
     d.addRecord();
-  }
-  else
+  } else
     menuDoctor();
   getchar();
 }
-void Doctor::showDelete(string namefile)
-{
+void Doctor::showDelete(string namefile) {
   std::ifstream fin;
   // table();
   fin.open(namefile, std::ios::in);
   std::vector<Doctor> listPatient;
   // Bỏ qua dòng đầu tiên
-  while (!fin.eof())
-  {
+  while (!fin.eof()) {
     Doctor patient;
     std::getline(fin, patient.idDoctor, '|');
     std::getline(fin, patient.id, '|');
@@ -102,8 +101,7 @@ void Doctor::showDelete(string namefile)
     listPatient.push_back(patient);
   }
   d.table();
-  for (int i = 0; i < listPatient.size() - 1; i++)
-  {
+  for (int i = 0; i < listPatient.size() - 1; i++) {
     cout << std::setw(20) << std::left << listPatient[i].idDoctor
          << std::setw(20) << listPatient[i].name << std::setw(20)
          << listPatient[i].age << std::setw(20) << listPatient[i].tellnumber
@@ -112,14 +110,12 @@ void Doctor::showDelete(string namefile)
   }
   fin.close();
 }
-void Doctor::displayRecord()
-{
+void Doctor::displayRecord() {
   std::ifstream fin;
   // table();
   fin.open("Doctor.txt", std::ios::in);
   std::vector<Doctor> listPatient;
-  while (!fin.eof())
-  {
+  while (!fin.eof()) {
     std::getline(fin, d.idDoctor, '|');
     std::getline(fin, d.id, '|');
     std::getline(fin, d.name, '|');
@@ -131,8 +127,7 @@ void Doctor::displayRecord()
   }
 
   d.table();
-  for (int i = 0; i < listPatient.size() - 1; i++)
-  {
+  for (int i = 0; i < listPatient.size() - 1; i++) {
     cout << std::setw(20) << std::left << listPatient[i].idDoctor
          << std::setw(20) << listPatient[i].name << std::setw(20)
          << listPatient[i].age << std::setw(20) << listPatient[i].tellnumber
@@ -149,15 +144,13 @@ void Doctor::displayRecord()
   cin.ignore();
   menuDoctor();
 }
-void Doctor::deleteRecord()
-{
+void Doctor::deleteRecord() {
   system("cls");
   std::vector<string> records;
   string line;
 
   std::ifstream records_input("doctor.txt");
-  while (getline(records_input, line))
-  {
+  while (getline(records_input, line)) {
     records.push_back(line);
   }
   records_input.close();
@@ -169,12 +162,9 @@ void Doctor::deleteRecord()
   cout << "Which record would you like to delete?" << std::endl;
   cin >> Location;
   system("cls");
-  if (Location < 0 || Location >= recno)
-  {
+  if (Location < 0 || Location >= recno) {
     cout << "Invalid choice" << std::endl;
-  }
-  else
-  {
+  } else {
     cout << "You have chosen to delete record " << Location << ": "
          << records[Location] << std::endl;
     records.erase(records.begin() + Location);
@@ -183,15 +173,13 @@ void Doctor::deleteRecord()
 
   std::ofstream records_output("doctor.txt");
   cout << "These are the records" << std::endl;
-  for (size_t i = 0; i < recno; ++i)
-  {
+  for (size_t i = 0; i < recno; ++i) {
     records_output << records[i] << std::endl;
   }
 
   records_output.close();
   showDelete("doctor.txt");
-  cout << std::endl
-       << "Goodbye" << std::endl;
+  cout << std::endl << "Goodbye" << std::endl;
 
   cout << "\n\n";
   cout << "\t\t\t\t";
@@ -201,23 +189,19 @@ void Doctor::deleteRecord()
   cout << "Do you want to delete more?(Y/N)";
   char input;
   cin >> &input;
-  if (input == 'Y' || input == 'y')
-  {
+  if (input == 'Y' || input == 'y') {
     d.deleteRecord();
-  }
-  else
+  } else
     menuDoctor();
   getchar();
 }
-void Doctor::showData()
-{
+void Doctor::showData() {
 
   cout << std::setw(20) << std::left << idDoctor << std::setw(20) << name
        << std::setw(20) << age << std::setw(20) << tellnumber << std::setw(20)
        << address << std::endl;
 }
-void Doctor::searchRecord()
-{
+void Doctor::searchRecord() {
   char n[10];
   int flag = 0;
   cout << "Enter id Doctor do you find: ";
@@ -227,8 +211,7 @@ void Doctor::searchRecord()
   // table();
   fin.open("doctor.txt", std::ios::in);
   std::vector<Doctor> listPatient;
-  while (!fin.eof())
-  {
+  while (!fin.eof()) {
     Doctor doctor;
     std::getline(fin, doctor.idDoctor, '|');
     std::getline(fin, doctor.id, '|');
@@ -240,10 +223,8 @@ void Doctor::searchRecord()
     listPatient.push_back(doctor);
   }
   d.table();
-  for (int i = 0; i < listPatient.size() - 1; i++)
-  {
-    if (listPatient[i].idDoctor == n)
-    {
+  for (int i = 0; i < listPatient.size() - 1; i++) {
+    if (listPatient[i].idDoctor == n) {
       listPatient[i].showData();
       flag++;
     }

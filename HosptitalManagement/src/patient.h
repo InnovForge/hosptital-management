@@ -12,7 +12,7 @@ public:
   void addRecord();
   void displayRecord();
   void deleteRecord();
-  void showDelete(string namefile);
+  void showTableChoose(string namefile);
   void table();
   void searchRecord();
   int findName(string name);

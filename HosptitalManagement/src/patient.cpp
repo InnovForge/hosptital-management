@@ -1,5 +1,6 @@
 #include "patient.h"
 #include "ui.h"
+#include <bits/fs_fwd.h>
 #include <cstdio>
 #include <fstream>
 #include <ios>
@@ -37,7 +38,8 @@ void Patient::getData() {
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "Age:                    :  ";
-  cin.ignore();
+  //  cin.ignore();
+  fflush(stdin);
   cin >> age;
   cout << "\n\n";
   cout << "\t\t\t\t";
@@ -47,7 +49,8 @@ void Patient::getData() {
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "address                 :  ";
-  cin >> address;
+  cin.ignore();
+  getline(cin, address);
   cout << std::endl;
 }
 int checkLine() {
@@ -121,7 +124,7 @@ void Patient::displayRecord() {
   cin.ignore();
   menuPatient();
 }
-void Patient::showDelete(string namefile) {
+void Patient::showTableChoose(string namefile) {
   std::ifstream fin;
   // table();
   fin.open(namefile, std::ios::in);
@@ -161,7 +164,7 @@ void Patient::deleteRecord() {
   size_t recno = records.size();
 
   cout << "These are the records" << std::endl;
-  showDelete("patient.txt");
+  showTableChoose("patient.txt");
   size_t Location = 0;
   cout << "Which record would you like to delete?" << std::endl;
   cin >> Location;
@@ -203,7 +206,7 @@ void Patient::deleteRecord() {
   }
 
   records_output.close();
-  showDelete("patient.txt");
+  showTableChoose("patient.txt");
   cout << std::endl << "Goodbye" << std::endl;
 
   cout << "\n\n";
@@ -227,11 +230,11 @@ void Patient::showData() {
        << address << std::endl;
 }
 void Patient::searchRecord() {
-  char n[10];
+  string Name;
   int flag = 0;
-  cout << "Enter id Doctor do you find: ";
+  cout << "Enter name do you find: ";
   cin.ignore();
-  cin >> n;
+  getline(cin, Name);
   std::ifstream fin;
   // table();
   fin.open("patient.txt", std::ios::in);
@@ -249,7 +252,7 @@ void Patient::searchRecord() {
   }
   p.table();
   for (int i = 0; i < listPatient.size() - 1; i++) {
-    if (listPatient[i].idPatient == n) {
+    if (listPatient[i].name == Name) {
       listPatient[i].showData();
       flag++;
     }
@@ -303,8 +306,9 @@ void addmedicalRecord() {
   getline(cin, patient.lishsubenh);
 }
 void Patient::addMedical() {
+  showTableChoose("patient.txt");
   string name;
-  cout << "nhap ten benh nhan: ";
+  cout << "nhap ten benh nhan add Medical: ";
   cin.ignore();
   // std::fflush(stdin);
   getline(cin, name);
