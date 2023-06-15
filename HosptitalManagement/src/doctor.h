@@ -7,6 +7,8 @@
 class Doctor : public Person {
 public:
   std::string idDoctor;
+  string salary;
+  string bienche;
   void getData();
   void showData();
   void addRecord();
@@ -15,5 +17,6 @@ public:
   void deleteRecord();
   void showDelete(string namefile);
   void searchRecord();
+  void TienLuong();
 };
 #endif // !DOCTOR_H

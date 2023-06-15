@@ -3,6 +3,7 @@
 #include "patient.h"
 #include "person.h"
 #include <cstdlib>
+#include <iomanip>
 using namespace std;
 
 void loading() {
@@ -113,11 +114,13 @@ void Person::table() {
           "-----------------------\n";
 }
 void Doctor::table() {
-  cout << std::setw(20) << std::left << "ID Doctor" << std::setw(20)
-       << "Full Name" << std::setw(20) << "Age" << std::setw(20)
-       << "Tell Number" << std::setw(20) << "Address" << std::endl;
+  cout << std::setw(20) << std::left << std::setw(20) << "Bien Che"
+       << std::setw(20) << "Salary" << std::setw(20) << "ID Doctor"
+       << std::setw(20) << "Full Name" << std::setw(20) << "Age"
+       << std::setw(20) << "Tell Number" << std::setw(20) << "Address"
+       << std::endl;
   cout << "------------------------------------------------------------------"
-          "-----------------------\n";
+          "-----------------------------------------------------------------\n";
 }
 void Patient::table() {
   cout << std::setw(20) << std::left << "ID Patient" << std::setw(20)
@@ -232,9 +235,13 @@ void menuDoctor() {
   cout << "\t\t\t\t";
   cout << " 4. Search and view Records Doctor\n\n";
   cout << "\t\t\t\t";
-  cout << " 5. Exit\n\n";
+  cout << " 5. Salary all Doctor\n\n";
   cout << "\t\t\t\t";
-  cout << "Choose options:[1/2/3/4/5]:";
+  cout << " 6. Back select Patient/Doctor\n\n";
+  cout << "\t\t\t\t";
+  cout << " 0. Exit\n\n";
+  cout << "\t\t\t\t";
+  cout << "Choose options:[1/2/3/4/5/6/0]:";
   fflush(stdin);
   cin >> input;
   switch (input) {
@@ -257,6 +264,10 @@ void menuDoctor() {
     d.searchRecord();
   } break;
   case 5: {
+    system("cls");
+    d.TienLuong();
+  } break;
+  case 6: {
     system("cls");
     select();
     break;

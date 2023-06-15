@@ -1,6 +1,11 @@
 #include "doctor.h"
 #include "ui.h"
+#include <cmath>
 #include <cstdio>
+#include <iomanip>
+#include <ios>
+#include <string>
+#include <vector>
 Doctor d;
 // std::ostream& operator<<(std::ostream& FILE_OUT, Doctor& bn) {
 //     FILE_OUT << bn.id << "|";
@@ -58,7 +63,16 @@ void Doctor::getData() {
   cout << "address                 :  ";
   cin.ignore();
   getline(cin, address);
-
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "bien che (1-yes/0-no)   :  ";
+  fflush(stdin);
+  cin >> bienche;
+  cout << "\n\n";
+  cout << "\t\t\t\t";
+  cout << "salaty                  :  ";
+  fflush(stdin);
+  cin >> salary;
   cout << std::endl;
 }
 void Doctor::addRecord() {
@@ -67,6 +81,8 @@ void Doctor::addRecord() {
   cin.ignore();
   d.getData();
   fout << d.idDoctor << "|";
+  fout << d.bienche << "|";
+  fout << d.salary << "|";
   fout << d; // được kế thừa từ lớp person;
   fout.close();
   cout << "\n\n";
@@ -92,6 +108,8 @@ void Doctor::showDelete(string namefile) {
   while (!fin.eof()) {
     Doctor patient;
     std::getline(fin, patient.idDoctor, '|');
+    std::getline(fin, patient.bienche, '|');
+    std::getline(fin, patient.salary, '|');
     std::getline(fin, patient.id, '|');
     std::getline(fin, patient.name, '|');
     std::getline(fin, patient.age, '|');
@@ -102,7 +120,8 @@ void Doctor::showDelete(string namefile) {
   }
   d.table();
   for (int i = 0; i < listPatient.size() - 1; i++) {
-    cout << std::setw(20) << std::left << listPatient[i].idDoctor
+    cout << std::setw(20) << std::left << listPatient[i].bienche << setw(20)
+         << listPatient[i].salary << setw(20) << listPatient[i].idDoctor
          << std::setw(20) << listPatient[i].name << std::setw(20)
          << listPatient[i].age << std::setw(20) << listPatient[i].tellnumber
          << std::setw(20) << listPatient[i].address << "[" << i << "]"
@@ -116,22 +135,27 @@ void Doctor::displayRecord() {
   fin.open("Doctor.txt", std::ios::in);
   std::vector<Doctor> listPatient;
   while (!fin.eof()) {
-    std::getline(fin, d.idDoctor, '|');
-    std::getline(fin, d.id, '|');
-    std::getline(fin, d.name, '|');
-    std::getline(fin, d.age, '|');
-    std::getline(fin, d.tellnumber, '|');
-    std::getline(fin, d.address, '\n');
+    Doctor patient;
+    std::getline(fin, patient.idDoctor, '|');
+    std::getline(fin, patient.bienche, '|');
+    std::getline(fin, patient.salary, '|');
+    std::getline(fin, patient.id, '|');
+    std::getline(fin, patient.name, '|');
+    std::getline(fin, patient.age, '|');
+    std::getline(fin, patient.tellnumber, '|');
+    std::getline(fin, patient.address, '\n');
     // cin.ignore();
-    listPatient.push_back(d);
+    listPatient.push_back(patient);
   }
 
   d.table();
   for (int i = 0; i < listPatient.size() - 1; i++) {
-    cout << std::setw(20) << std::left << listPatient[i].idDoctor
-         << std::setw(20) << listPatient[i].name << std::setw(20)
-         << listPatient[i].age << std::setw(20) << listPatient[i].tellnumber
-         << std::setw(20) << listPatient[i].address << std::endl;
+    cout << std::setw(20) << std::left << std::setw(20)
+         << listPatient[i].bienche << setw(20) << listPatient[i].salary
+         << setw(20) << listPatient[i].idDoctor << std::setw(20)
+         << listPatient[i].name << std::setw(20) << listPatient[i].age
+         << std::setw(20) << listPatient[i].tellnumber << std::setw(20)
+         << listPatient[i].address << std::endl;
   }
 
   fin.close();
@@ -202,29 +226,31 @@ void Doctor::showData() {
        << address << std::endl;
 }
 void Doctor::searchRecord() {
-  char n[10];
+  string Name;
   int flag = 0;
-  cout << "Enter id Doctor do you find: ";
+  cout << "Enter name Doctor do you find: ";
   cin.ignore();
-  cin >> n;
+  getline(cin, Name);
   std::ifstream fin;
   // table();
   fin.open("doctor.txt", std::ios::in);
   std::vector<Doctor> listPatient;
   while (!fin.eof()) {
-    Doctor doctor;
-    std::getline(fin, doctor.idDoctor, '|');
-    std::getline(fin, doctor.id, '|');
-    std::getline(fin, doctor.name, '|');
-    std::getline(fin, doctor.age, '|');
-    std::getline(fin, doctor.tellnumber, '|');
-    std::getline(fin, doctor.address, '\n');
+    Doctor patient;
+    std::getline(fin, patient.idDoctor, '|');
+    std::getline(fin, patient.bienche, '|');
+    std::getline(fin, patient.salary, '|');
+    std::getline(fin, patient.id, '|');
+    std::getline(fin, patient.name, '|');
+    std::getline(fin, patient.age, '|');
+    std::getline(fin, patient.tellnumber, '|');
+    std::getline(fin, patient.address, '\n');
     // cin.ignore();
-    listPatient.push_back(doctor);
+    listPatient.push_back(patient);
   }
   d.table();
   for (int i = 0; i < listPatient.size() - 1; i++) {
-    if (listPatient[i].idDoctor == n) {
+    if (listPatient[i].name == Name) {
       listPatient[i].showData();
       flag++;
     }
@@ -237,6 +263,56 @@ void Doctor::searchRecord() {
   cout << "\n\n";
   cout << "\t\t\t\t";
   cout << "press enter to exit";
+  getchar();
+  cin.ignore();
+  menuDoctor();
+}
+void Doctor::TienLuong() {
+  std::ifstream fin;
+  // table();
+  fin.open("Doctor.txt", std::ios::in);
+  std::vector<Doctor> listPatient;
+  while (!fin.eof()) {
+    Doctor patient;
+    std::getline(fin, patient.idDoctor, '|');
+    std::getline(fin, patient.bienche, '|');
+    std::getline(fin, patient.salary, '|');
+    std::getline(fin, patient.id, '|');
+    std::getline(fin, patient.name, '|');
+    std::getline(fin, patient.age, '|');
+    std::getline(fin, patient.tellnumber, '|');
+    std::getline(fin, patient.address, '\n');
+    // cin.ignore();
+    listPatient.push_back(patient);
+  }
+  fin.close();
+  vector<int> arrNumber;
+  for (int i = 0; i < listPatient.size() - 1; i++) {
+    // listPatient[i].salary;
+    int tien = stoi(listPatient[i].salary);
+    arrNumber.push_back(tien);
+  }
+  for (int i = 0; i < listPatient.size() - 1; i++) {
+    if (listPatient[i].bienche == "1") {
+      cout << right << setw(50) << listPatient[i].name << ": "
+           << listPatient[i].salary << " + Bonus 500" << endl;
+    } else {
+      cout << right << setw(50) << listPatient[i].name << ": "
+           << listPatient[i].salary << endl;
+    }
+  }
+  int Sum = 0;
+  for (int i = 0; i < arrNumber.size(); i++) {
+    if (listPatient[i].bienche == "1") {
+      arrNumber[i] += 500;
+      Sum += arrNumber[i];
+    } else {
+      Sum += arrNumber[i];
+    }
+  }
+  cout << "\n\n\n\nSum salary all Doctor: " << Sum << endl;
+  cout << "\t\t\t\t";
+  cout << "Press Enter to exit";
   getchar();
   cin.ignore();
   menuDoctor();
